@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonListHeader, IonList, IonLabel, IonItem, IonButton, IonInput } from '@ionic/angular/standalone';
 import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-home',
@@ -11,6 +13,13 @@ import { FormsModule } from '@angular/forms';
 })
 export class HomePage {
 
+
   keyword: string = "";
-  constructor() {}
+  constructor(private router: Router,private ds:DataService) {}
+  
+  async openMovies(){
+  await this.ds.set("kw", this.keyword);
+  this.router.navigate(['movie-details']);
+}
+  
 }

@@ -26,5 +26,7 @@
 </ion-list>
 
 <ion-input label="Search" placeholder="Movie title" [(ngModel)]="keyword"></ion-input>
-<ion-button>Search</ion-button>
+<ion-button (click)="openMovies()">Search</ion-button>
+<br>
+<ion-label>Todays Trending Movies</ion-label>
 </ion-content>
