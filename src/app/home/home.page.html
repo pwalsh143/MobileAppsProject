@@ -36,4 +36,16 @@
 <ion-label>Todays Trending Movies</ion-label>
 
 
+  <ion-card *ngFor="let movie of movieInfo">
+  <img src= "https://image.tmdb.org/t/p/w500{{movie.poster_path}}"/>
+  <ion-card-header>
+    <ion-card-title>{{movie.title}}</ion-card-title>
+    <ion-card-subtitle>Rating: {{movie.vote_average}}</ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-card-content>{{movie.overview}}</ion-card-content>
+</ion-card>
 </ion-content>
+
+
+
