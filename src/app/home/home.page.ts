@@ -31,7 +31,9 @@ export class HomePage implements OnInit {
     this.loadTrends();
    }
 
+
     async loadTrends(){
+    this.options.url ="https://api.themoviedb.org/3/trending/movie/day?api_key=" + this.apiKey;
     let result = await this.mhs.get(this.options)
     this.movieInfo = result.data.results
     console.log(JSON.stringify(this.movieInfo)) 
@@ -39,7 +41,20 @@ export class HomePage implements OnInit {
   
   async openMovies(){
   await this.ds.set("kw", this.keyword);
-  this.router.navigate(['/movie-details']);
+  
+  
+  //for empty search bar return trending movies by calling method again
+  if(this.keyword ==""){
+    this.loadTrends();
+    return;
+
+  }
+  //search bar with returned query from call as per suggestion in project brief
+this.options.url= "https://api.themoviedb.org/3/search/movie?api_key=" + this.apiKey + "&query=" + this.keyword
+
+//copied code from above to reuse
+let result = await this.mhs.get(this.options)
+    this.movieInfo = result.data.results
 }
   
 }
