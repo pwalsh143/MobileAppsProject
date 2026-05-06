@@ -1,17 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonIcon, IonButton } from '@ionic/angular/standalone';
 import { DataService } from '../services/data.service';
 import { MyHttpService } from '../services/my-http.service';
 import { HttpOptions } from '@capacitor/core';
+import { homeOutline } from 'ionicons/icons';
+import { addIcons } from 'ionicons';
+import { RouterLink } from '@angular/router';
+
 
 @Component({
   selector: 'app-movie-details',
   templateUrl: './movie-details.page.html',
   styleUrls: ['./movie-details.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonIcon, IonButton, RouterLink]
 })
 export class MovieDetailsPage implements OnInit {
 
@@ -22,7 +26,14 @@ export class MovieDetailsPage implements OnInit {
   url: "https://api.themoviedb.org/3/trending/movie/day?api_key=" + this.apiKey 
   }
   
-  constructor(private ds:DataService, private mhs:MyHttpService) { }
+  constructor(private ds:DataService, private mhs:MyHttpService) { 
+
+    addIcons({ homeOutline });
+  }
+
+  homeScreen(){
+
+  }
 
    ngOnInit() {
     this.getKW();

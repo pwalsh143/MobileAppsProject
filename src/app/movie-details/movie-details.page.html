@@ -4,7 +4,13 @@
   </ion-toolbar>
 </ion-header>
 
+
+//added routerLink for home icon for homepage
 <ion-content [fullscreen]="true">
+  
+  <ion-button [routerLink]="['/home']" fill="clear" aria-label="Home" >
+  <ion-icon name="home-outline" size="large"></ion-icon>
+</ion-button>
   <ion-card *ngFor="let movie of movieInfo">
   <img src= "https://image.tmdb.org/t/p/w500{{movie.poster_path}}"/>
   <ion-card-header>
