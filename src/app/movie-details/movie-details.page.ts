@@ -19,7 +19,7 @@ import { RouterLink } from '@angular/router';
 })
 export class MovieDetailsPage implements OnInit {
 
-  keyword: string = "";
+  
   apiKey = "1e83ad3775d3523cef62b909a9826f44"
   movieInfo: any;
   options: HttpOptions = {
@@ -36,15 +36,9 @@ export class MovieDetailsPage implements OnInit {
   }
 
    ngOnInit() {
-    this.getKW();
+    
    }
 
-    async getKW(){
-    this.keyword = await this.ds.get('kw');
-    this.options.url = this.options.url.concat(this.keyword)
-    let result = this.mhs.get(this.options)
-    this.movieInfo = (await result).data.results
-    console.log(JSON.stringify(this.movieInfo)) 
-  }
+   
 }
 

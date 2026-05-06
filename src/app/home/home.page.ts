@@ -55,8 +55,18 @@ this.options.url= "https://api.themoviedb.org/3/search/movie?api_key=" + this.ap
 //copied code from above to reuse
 let result = await this.mhs.get(this.options)
     this.movieInfo = result.data.results
+
+
 }
   
+async openMovieDetails(id:number){
+  //using dataservice save movie clicked
+  await this.ds.set("movieID", id)
+
+  //then open the relevant movie details page
+  this.router.navigate(['/movie-details']);
+}
+
 }
 
 

@@ -36,7 +36,7 @@
 <ion-label>Todays Trending Movies</ion-label>
 
 
-  <ion-card *ngFor="let movie of movieInfo">
+  <ion-card *ngFor="let movie of movieInfo" (click)="openMovieDetails(movie.id)">
   <img src= "https://image.tmdb.org/t/p/w500{{movie.poster_path}}"/>
   <ion-card-header>
     <ion-card-title>{{movie.title}}</ion-card-title>
