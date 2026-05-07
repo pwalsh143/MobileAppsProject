@@ -19,18 +19,20 @@
   </ion-card-header>
 </ion-card>
 <h1>Cast:</h1>
-<ion-card *ngFor="let actor of castMembers">
-  <ion-card-header Cast>
+<ion-card *ngFor="let actor of castMembers"(click)="openDetails(actor.id)">
+  <ion-card-header>
+    <img src= "https://image.tmdb.org/t/p/w500{{actor.profile_path}}" width="500"/>
     <ion-card-title>{{actor.name}}</ion-card-title>
     <ion-card-subtitle>{{actor.character}}</ion-card-subtitle>
   </ion-card-header>
 </ion-card>
 <br>
 <h1>Crew:</h1>
-<ion-card *ngFor="let actor of crewMembers">
+<ion-card *ngFor="let crew of crewMembers"(click)="openDetails(crew.id)">
   <ion-card-header>
-    <ion-card-title>{{actor.name}}</ion-card-title>
-    <ion-card-subtitle>{{actor.job}}</ion-card-subtitle>
+    <img src= "https://image.tmdb.org/t/p/w500{{crew.profile_path}}" width="500"/>
+    <ion-card-title>{{crew.name}}</ion-card-title>
+    <ion-card-subtitle>{{crew.job}}</ion-card-subtitle>
   </ion-card-header>
 </ion-card>
 

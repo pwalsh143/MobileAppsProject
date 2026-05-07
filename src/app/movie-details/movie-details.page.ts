@@ -8,6 +8,7 @@ import { HttpOptions } from '@capacitor/core';
 import { homeOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class MovieDetailsPage implements OnInit {
   url: "https://api.themoviedb.org/3/trending/movie/day?api_key=" + this.apiKey 
   }
   
-  constructor(private ds:DataService, private mhs:MyHttpService) { 
+  constructor(private router: Router, private ds:DataService, private mhs:MyHttpService) { 
 
     addIcons({ homeOutline });
   }
@@ -62,6 +63,17 @@ export class MovieDetailsPage implements OnInit {
     this.castMembers = result.data.cast;
     this.crewMembers = result.data.crew;
   }
+
+  //copied method from homepage and adjusted it to open details
+  async openDetails(id: number){
+
+  console.log(id);
+  //using dataservice save cast/crew details clicked
+  await this.ds.set("personalId", id)
+
+  //open the relevant details page
+  this.router.navigate(['/details']);
+}
 
 
    ngOnInit() {
