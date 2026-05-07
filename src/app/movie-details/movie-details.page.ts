@@ -22,6 +22,8 @@ export class MovieDetailsPage implements OnInit {
   
   apiKey = "1e83ad3775d3523cef62b909a9826f44"
   movieInfo: any;
+  castMembers: any;
+  crewMembers: any;
   options: HttpOptions = {
   url: "https://api.themoviedb.org/3/trending/movie/day?api_key=" + this.apiKey 
   }
@@ -49,10 +51,24 @@ export class MovieDetailsPage implements OnInit {
     console.log(this.movieInfo);
   }
 
+  async castingCall(){
+
+    //same as above but added credits to url to pull relevant details for page display
+    let movieId = await this.ds.get("movieId");
+    this.options.url= "https://api.themoviedb.org/3/movie/" + movieId + "/credits?api_key=" + this.apiKey;
+
+    //store data for cast and crew separately
+    let result = await this.mhs.get(this.options)
+    this.castMembers = result.data.cast;
+    this.crewMembers = result.data.crew;
+  }
+
 
    ngOnInit() {
-    //call method on page load
-this.getMovieDetails();
+    //call methods on page load
+    this.getMovieDetails();
+
+    this.castingCall();
 
    }
 
