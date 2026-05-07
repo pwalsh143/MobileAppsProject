@@ -15,7 +15,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './movie-details.page.html',
   styleUrls: ['./movie-details.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonIcon, IonButton, RouterLink]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonIcon, IonButton, RouterLink]
 })
 export class MovieDetailsPage implements OnInit {
 
@@ -31,12 +31,29 @@ export class MovieDetailsPage implements OnInit {
     addIcons({ homeOutline });
   }
 
-  homeScreen(){
+  async getMovieDetails(){
 
+    //retrieve movie ID
+    let movieId = await this.ds.get("movieId");
+
+    //movie id to console, to check with inspect tool
+    console.log(movieId);
+
+     //took code from home.page.ts and adjusted it slightly
+    this.options.url= "https://api.themoviedb.org/3/movie/" + movieId + "?api_key=" + this.apiKey;
+
+    //send request to database & store
+    let result = await this.mhs.get(this.options)
+    this.movieInfo = result.data;
+
+    console.log(this.movieInfo);
   }
 
+
    ngOnInit() {
-    
+    //call method on page load
+this.getMovieDetails();
+
    }
 
    

@@ -5,21 +5,19 @@
 </ion-header>
 
 
-//added routerLink for home icon for homepage
+<!-- added routerLink for home icon for homepage -->
 <ion-content [fullscreen]="true">
   
   <ion-button [routerLink]="['/home']" fill="clear" aria-label="Home" >
   <ion-icon name="home-outline" size="large"></ion-icon>
 </ion-button>
-  
-<ion-card *ngFor="let movie of movieInfo">
-  <img src= "https://image.tmdb.org/t/p/w500{{movie.poster_path}}"/>
+  <!-- Had to add safe navigation operatior(?) as page wasn't laoding on first click, this cleared it up -->
+<ion-card>
+  <img src= "https://image.tmdb.org/t/p/w500{{movieInfo?.poster_path}}"/>
   <ion-card-header>
-    <ion-card-title>{{movie.title}}</ion-card-title>
-    <ion-card-subtitle>Rating: {{movie.vote_average}}</ion-card-subtitle>
+    <ion-card-title>{{movieInfo?.title}}</ion-card-title>
+    <ion-card-subtitle>{{movieInfo?.overview}}</ion-card-subtitle>
   </ion-card-header>
-
-  <ion-card-content>{{movie.overview}}</ion-card-content>
 </ion-card>
 
 

@@ -59,9 +59,11 @@ let result = await this.mhs.get(this.options)
 
 }
   
-async openMovieDetails(id:number){
+async openMovieDetails(id: number){
+
+  console.log(id);
   //using dataservice save movie clicked
-  await this.ds.set("movieID", id)
+  await this.ds.set("movieId", id)
 
   //then open the relevant movie details page
   this.router.navigate(['/movie-details']);
