@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header>
 
-//added ngIf for certain criteria below in case there was no value to return i.e. deathday,biography etc
+<!-- added ngIf for certain criteria below in case there was no value to return i.e. deathday,biography etc -->
 <ion-content [fullscreen]="true">
 <ion-button [routerLink]="['/home']" fill="clear" aria-label="Home" >
   <ion-icon name="home-outline" size="large"></ion-icon>
@@ -32,9 +32,9 @@
     <ion-list>
       <ion-item *ngFor="let movie of creditsInfo" (click)="openMovieDetails(movie.id)">
         <ion-thumbnail slot="start">
-          <img src= "https://image.tmdb.org/t/p/w500{{movie.poster_path}}" />
+          <img src= "https://image.tmdb.org/t/p/w500{{movie?.poster_path}}" />
         </ion-thumbnail>
-        <ion-label>{{movie.title}}</ion-label>
+        <ion-label>{{movie?.title}}</ion-label>
       </ion-item>
       </ion-list>
 </ion-card-content>

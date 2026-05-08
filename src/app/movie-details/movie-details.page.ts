@@ -9,6 +9,7 @@ import { homeOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
+import { ViewWillEnter } from '@ionic/angular';
 
 
 @Component({
@@ -18,7 +19,7 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonIcon, IonButton, RouterLink]
 })
-export class MovieDetailsPage implements OnInit {
+export class MovieDetailsPage implements OnInit,ViewWillEnter {
 
   
   apiKey = "1e83ad3775d3523cef62b909a9826f44"
@@ -75,6 +76,7 @@ export class MovieDetailsPage implements OnInit {
   }
 
 
+
    ngOnInit() {
     //call methods on page load
     this.getMovieDetails();
@@ -82,6 +84,17 @@ export class MovieDetailsPage implements OnInit {
     this.castingCall();
 
    }
+
+   /* as per your lecture notes(Ionic Introduction) on the ionic lifecycle and the ionic docs, used ionViewWillEnter to fix the issue of pages 
+   keeping data and not properly routing to desired content but instead what appeared to be routing back to the retrieved saved data, 
+   there appeared to be a loop where after clicking most likely due to what was saved in storage. */
+   ionViewWillEnter(){
+    
+    //calls methods after ngOnInit, essentially refreshing relevant data
+  this.getMovieDetails();
+
+  this.castingCall();
+}
 
    
 }
