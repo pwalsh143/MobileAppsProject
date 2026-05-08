@@ -70,10 +70,9 @@ export class MovieDetailsPage implements OnInit {
   console.log(id);
   //using dataservice save cast/crew details clicked
   await this.ds.set("personalId", id)
-
   //open the relevant details page
   this.router.navigate(['/details']);
-}
+  }
 
 
    ngOnInit() {

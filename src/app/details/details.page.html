@@ -21,4 +21,22 @@
     <ion-card-subtitle *ngIf="personInfo?.biography">Bio: {{personInfo?.biography}}</ion-card-subtitle>
   </ion-card-header>
 </ion-card>
-</ion-content>
+
+
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>List of films</ion-card-title>
+    <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-list>
+      <ion-item *ngFor="let movie of creditsInfo" (click)="openMovieDetails(movie.id)">
+        <ion-thumbnail slot="start">
+          <img src= "https://image.tmdb.org/t/p/w500{{movie.poster_path}}" />
+        </ion-thumbnail>
+        <ion-label>{{movie.title}}</ion-label>
+      </ion-item>
+      </ion-list>
+</ion-card-content>
+</ion-card>
+
