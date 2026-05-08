@@ -4,12 +4,21 @@
   </ion-toolbar>
 </ion-header>
 
+//added ngIf for certain criteria below in case there was no value to return i.e. deathday,biography etc
 <ion-content [fullscreen]="true">
+<ion-button [routerLink]="['/home']" fill="clear" aria-label="Home" >
+  <ion-icon name="home-outline" size="large"></ion-icon>
+</ion-button>
+
   <ion-card>
   <ion-card-header>
     <img src= "https://image.tmdb.org/t/p/w500{{personInfo?.profile_path}}" width="500"/>
-    <ion-card-title>{{personInfo?.name}}</ion-card-title>
-    <ion-card-subtitle>{{personInfo?.birthday}}</ion-card-subtitle>
+    <ion-card-title>Name: {{personInfo?.name}}</ion-card-title>
+    <ion-card-subtitle *ngIf="personInfo?.also_known_as">AKA: {{personInfo?.also_known_as}}</ion-card-subtitle>
+    <ion-card-subtitle *ngIf="personInfo?.birthday">Date of Birth: {{personInfo?.birthday}}</ion-card-subtitle>
+    <ion-card-subtitle *ngIf="personInfo?.deathday">Date of death: {{personInfo?.deathday}}</ion-card-subtitle>
+    <ion-card-subtitle *ngIf="personInfo?.place_of_birth">Place of Birth: {{personInfo?.place_of_birth}}</ion-card-subtitle>
+    <ion-card-subtitle *ngIf="personInfo?.biography">Bio: {{personInfo?.biography}}</ion-card-subtitle>
   </ion-card-header>
 </ion-card>
 </ion-content>
