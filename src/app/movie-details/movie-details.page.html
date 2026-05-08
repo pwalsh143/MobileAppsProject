@@ -5,11 +5,19 @@
 </ion-header>
 
 
-<!-- added routerLink for home icon for homepage -->
+<!-- added routerLink for home icon for homepage, favourites and top rated -->
 <ion-content [fullscreen]="true">
   
   <ion-button [routerLink]="['/home']" fill="clear" aria-label="Home" >
   <ion-icon name="home-outline" size="large"></ion-icon>
+</ion-button>
+
+<ion-button [routerLink]="['/favourites']"fill="clear" aria-label="Favorite">
+  <ion-icon name="heart"></ion-icon>
+</ion-button>
+
+<ion-button [routerLink]="['/top-rated']" fill="clear" aria-label="Top Rated">
+  <ion-icon name="trophy-outline"></ion-icon>
 </ion-button>
   <!-- Had to add safe navigation operatior(?) as page wasn't laoding on first click, this cleared it up -->
 <ion-card>

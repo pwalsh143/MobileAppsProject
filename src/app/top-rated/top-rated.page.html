@@ -1,13 +1,27 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>top-rated</ion-title>
+    <ion-title>Top Rated Movies</ion-title>
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">top-rated</ion-title>
-    </ion-toolbar>
-  </ion-header>
+
+  <ion-button [routerLink]="['/home']" fill="clear" aria-label="Home" >
+  <ion-icon name="home-outline" size="large"></ion-icon>
+</ion-button>
+
+<ion-button [routerLink]="['/favourites']"fill="clear" aria-label="Favorite">
+  <ion-icon name="heart"></ion-icon>
+</ion-button>
+
+  <ion-card
+  *ngFor="let movie of topInfo" (click)="openMovieDetails(movie.id)">
+    <img src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}" />
+    <ion-card-header>
+      <ion-card-title>{{movie.title}}</ion-card-title>
+      <ion-card-subtitle>Rating: {{movie.vote_average}}</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
 </ion-content>
+

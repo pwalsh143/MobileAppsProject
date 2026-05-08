@@ -10,6 +10,14 @@
   <ion-icon name="home-outline" size="large"></ion-icon>
 </ion-button>
 
+<ion-button [routerLink]="['/favourites']"fill="clear" aria-label="Favorite">
+  <ion-icon name="heart"></ion-icon>
+</ion-button>
+
+<ion-button [routerLink]="['/top-rated']" fill="clear" aria-label="Top Rated">
+  <ion-icon name="trophy-outline"></ion-icon>
+</ion-button>
+
   <ion-card>
   <ion-card-header>
     <img src= "https://image.tmdb.org/t/p/w500{{personInfo?.profile_path}}" width="500"/>

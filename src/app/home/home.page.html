@@ -28,8 +28,12 @@
 <ion-input label="Search" placeholder="Movie title" [(ngModel)]="keyword"></ion-input>
 <ion-button (click)="openMovies()">Search</ion-button>
 
-<ion-button fill="clear" aria-label="Favorite">
+<ion-button [routerLink]="['/favourites']"fill="clear" aria-label="Favorite">
   <ion-icon name="heart"></ion-icon>
+</ion-button>
+
+<ion-button [routerLink]="['/top-rated']" fill="clear" aria-label="Top Rated">
+  <ion-icon name="trophy-outline"></ion-icon>
 </ion-button>
 <br>
 <br>

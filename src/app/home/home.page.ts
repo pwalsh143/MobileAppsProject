@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { DataService } from '../services/data.service';
 import { addIcons } from 'ionicons';
 import { heart } from 'ionicons/icons';
+import { trophyOutline } from 'ionicons/icons';
 import { CommonModule } from '@angular/common';
 import { MyHttpService } from '../services/my-http.service';
 import { HttpOptions } from '@capacitor/core';
@@ -25,7 +26,7 @@ export class HomePage implements OnInit {
   options: HttpOptions = {
   url: "https://api.themoviedb.org/3/trending/movie/day?api_key=" + this.apiKey 
   }
-  constructor(private router: Router,private ds:DataService, private mhs:MyHttpService) {addIcons({heart});}
+  constructor(private router: Router,private ds:DataService, private mhs:MyHttpService) {addIcons({heart, trophyOutline});}
 
    ngOnInit() {
     this.loadTrends();
