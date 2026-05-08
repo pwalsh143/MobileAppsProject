@@ -86,11 +86,11 @@ export class MovieDetailsPage implements OnInit,ViewWillEnter {
    }
 
    /* as per your lecture notes(Ionic Introduction) on the ionic lifecycle and the ionic docs, used ionViewWillEnter to fix the issue of pages 
-   keeping data and not properly routing to desired content but instead what appeared to be routing back to the retrieved saved data, 
-   there appeared to be a loop where after clicking most likely due to what was saved in storage. */
+   keeping data and not properly routing to desired content, instead what occured was routing back to the retrieved saved data, 
+   there appeared to be a loop, where after clicking it most likely referenced what was saved in storage. */
+   
    ionViewWillEnter(){
-    
-    //calls methods after ngOnInit, essentially refreshing relevant data
+  //calls methods after ngOnInit, refreshing relevant data
   this.getMovieDetails();
 
   this.castingCall();
