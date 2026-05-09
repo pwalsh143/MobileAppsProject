@@ -7,33 +7,17 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-list>
-  <ion-list-header>
-    <ion-label>Navigation</ion-label>
-  </ion-list-header>
-  <ion-item>
-    <ion-button [routerLink]="['/home']"fill="clear">Home</ion-button>
-  </ion-item>
-  <ion-item>
-    <ion-button [routerLink]="['/movie-details']" fill="clear">Movie-Details</ion-button>
-  </ion-item>
-  <ion-item>
-    <ion-button [routerLink]="['/details']" fill="clear">Details</ion-button>
-  </ion-item>
-  <ion-item>
-    <ion-button [routerLink]="['/favourites']" fill="clear">Favourites</ion-button>
-  </ion-item>
-</ion-list>
+  
 
 <ion-input label="Search" placeholder="Movie title" [(ngModel)]="keyword"></ion-input>
 <ion-button (click)="openMovies()">Search</ion-button>
 
 <ion-button [routerLink]="['/favourites']"fill="clear" aria-label="Favorite">
-  <ion-icon name="heart"></ion-icon>
+  <ion-icon name="heart" size="large"></ion-icon>
 </ion-button>
 
 <ion-button [routerLink]="['/top-rated']" fill="clear" aria-label="Top Rated">
-  <ion-icon name="trophy-outline"></ion-icon>
+  <ion-icon name="trophy-outline" size="large"></ion-icon>
 </ion-button>
 <br>
 <br>

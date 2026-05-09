@@ -11,7 +11,10 @@ import { MyHttpService } from '../services/my-http.service';
 import { HttpOptions } from '@capacitor/core';
 import { homeOutline } from 'ionicons/icons';
 
-
+/*This page was created as an optional extra, it simply builds upon the other pages like details and movie_details,
+You'll notice a lot of the code is similar but just tweaked slightly for the relevant varibales for this page.
+Essentially nothing is really new here except the api call to the specific url(top rated) which is listed on the tmdb
+reference section under "Top Rated" */
 
 @Component({
   selector: 'app-top-rated',
@@ -30,6 +33,7 @@ export class TopRatedPage implements OnInit {
   }
   constructor(private router: Router,private ds:DataService, private mhs:MyHttpService) {addIcons({heart, homeOutline,});}
 
+  //similar to other relevant methods on other pages, just an api call to the relevant url with my api key
 async getTopRated(){
   this.options.url ="https://api.themoviedb.org/3/movie/top_rated?api_key=" + this.apiKey;
     let result = await this.mhs.get(this.options)

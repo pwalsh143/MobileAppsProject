@@ -26,6 +26,7 @@ export class MovieDetailsPage implements OnInit,ViewWillEnter {
   movieInfo: any;
   castMembers: any;
   crewMembers: any;
+  isFav: boolean = false;
   options: HttpOptions = {
   url: "https://api.themoviedb.org/3/trending/movie/day?api_key=" + this.apiKey 
   }
@@ -49,6 +50,9 @@ export class MovieDetailsPage implements OnInit,ViewWillEnter {
     //send request to database & store
     let result = await this.mhs.get(this.options)
     this.movieInfo = result.data;
+
+    //wait for method below to finish to determine if it is a favourite
+    await this.favouriteMovie();
 
     console.log(this.movieInfo);
   }
@@ -74,6 +78,78 @@ export class MovieDetailsPage implements OnInit,ViewWillEnter {
   //open the relevant details page
   this.router.navigate(['/details']);
   }
+
+
+  //this method checks if the movie is already favourited
+async favouriteMovie(){
+
+  //fetch favourites from ionic strage
+let favourites = await this.ds.get("favourites");
+
+//check if null/empty
+if(favourites === null || favourites === ""){
+  //create an array of favourites that is empty 
+  favourites = [];
+}
+
+//default to false
+this.isFav = false;
+
+//iterate through array containing favourites
+for (let movie of favourites){
+  if(movie.id == this.movieInfo.id) //if there is a match between stored movie and current movie
+    this.isFav = true; //then this movie is already a favourite
+}
+
+}
+
+
+  //method for adding to favourites
+  async addToFavourites(){
+//retrieve favourites array
+    let favourites = await this.ds.get("favourites");
+    
+    //check if null/empty
+if(favourites === null || favourites === ""){
+  //create an array of favourites that is empty 
+  favourites = [];
+}
+
+    //add current movie to the array
+    favourites.push(this.movieInfo);
+
+    //now set this new array with updated data
+    await this.ds.set("favourites", favourites);
+
+    //update status of film
+    this.isFav = true;
+
+  }
+
+  //method for removing favourites
+  async removeFromFavourites(){
+
+    //retrieve favourites array
+    let favourites = await this.ds.get("favourites");
+
+      //loop through the array and remove(splice) the index if it matches
+    for(let i = 0; i< favourites.length;i++){
+
+      //check if the movies match
+      if (favourites[i].id == this.movieInfo.id){
+      favourites.splice(i,1); //and remove if that is the case
+      }
+    }
+
+    //now set this new array with updated data
+    await this.ds.set("favourites", favourites);
+
+    //update status of film
+    this.isFav = false;
+  }
+
+
+
 
 
 

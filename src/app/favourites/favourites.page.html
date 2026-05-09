@@ -10,9 +10,18 @@
 </ion-button>
 
 <ion-button [routerLink]="['/top-rated']" fill="clear" aria-label="Top Rated">
-  <ion-icon name="trophy-outline"></ion-icon>
+  <ion-icon name="trophy-outline" size="large"></ion-icon>
 </ion-button>
 
+<!--Conditional logic if there is no favourites yet, you are shown this prompt-->
+<h1 *ngIf="favouriteList?.length ===0">No favourites yet, add some!</h1>
 
+<ion-card *ngFor="let movie of favouriteList" (click)="openMovieDetails(movie.id)">
+    <img src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}" />
+    <ion-card-header>
+      <ion-card-title>{{movie.title}}</ion-card-title>
+      <ion-card-subtitle>Rating: {{movie.vote_average}}</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
 
 </ion-content>
