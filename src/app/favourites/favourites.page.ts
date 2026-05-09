@@ -22,6 +22,16 @@ export class FavouritesPage implements OnInit {
 
   constructor(private router: Router,private ds:DataService, private mhs:MyHttpService) {addIcons({heart, trophyOutline, homeOutline});}
 
+  addToFavourites(){
+
+  }
+
+  removeFromFavourites(){
+    
+  }
+
+
+
   ngOnInit() {
   }
 
