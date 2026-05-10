@@ -10,6 +10,14 @@ import { HttpOptions } from '@capacitor/core';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 
+
+/**This page is for the details page and utilises similar logic and builds from the homepage and movie-details page, you'll notice familiar code throughout each page. 
+ * It is injected with services, the relevant imports required and allows cast and crew details to be shown for the specific individual with methods retrieving and storing
+ * the relevant data.
+*/
+
+
+
 @Component({
   selector: 'app-details',
   templateUrl: './details.page.html',
@@ -51,9 +59,7 @@ export class DetailsPage implements OnInit {
   //almost exact same as getpersonal details above but for film credits, as you can see from URL API request
   async getCredits() {
     let personalId = await this.ds.get("personalId");
-
     this.options.url = "https://api.themoviedb.org/3/person/" + personalId + "/movie_credits?api_key=" + this.apiKey;
-
     let result = await this.mhs.get(this.options);
     
     //separate for cast and crew

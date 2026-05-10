@@ -11,6 +11,10 @@ import { HttpOptions } from '@capacitor/core';
 import { homeOutline } from 'ionicons/icons';
 
 
+/*This page contains methods relevant for the favourites display, again it reuses much of the code already created
+*but changed slightly
+*/
+
 @Component({
   selector: 'app-favourites',
   templateUrl: './favourites.page.html',
@@ -33,7 +37,7 @@ export class FavouritesPage implements OnInit {
 
     //if it doesn't exist create a new array, just like movie details page(copied from there)
     if (favourites === null || favourites === "") {
-      favourites = [];//empty array
+      favourites = []; //empty array created
 
     }
     this.favouriteList = favourites;

@@ -12,6 +12,12 @@ import { Router } from '@angular/router';
 import { ViewWillEnter } from '@ionic/angular';
 
 
+
+/**
+ * This page has several methods that are reused throughout but also the add, remove and favourites methods to check the status and potentially change
+ * what is displayed on the favourites page. I have commented throughout to explain logic and what is occuring at each stage
+ */
+
 @Component({
   selector: 'app-movie-details',
   templateUrl: './movie-details.page.html',
@@ -21,7 +27,7 @@ import { ViewWillEnter } from '@ionic/angular';
 })
 export class MovieDetailsPage implements OnInit, ViewWillEnter {
 
-
+  //variables listed here
   apiKey = "1e83ad3775d3523cef62b909a9826f44"
   movieInfo: any;
   castMembers: any;

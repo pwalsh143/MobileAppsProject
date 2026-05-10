@@ -24,7 +24,7 @@
   <ion-card>
     <ion-button *ngIf="!isFav" (click)="addToFavourites()">Add to Favourites
     </ion-button>
-    <ion-button *ngIf="isFav" (click)="removeFromFavourites()">Remove from Favourites
+    <ion-button *ngIf="isFav" (click)="removeFromFavourites()" color="danger">Remove from Favourites
     </ion-button>
     <ion-card-header>
       <ion-card-title>{{movieInfo?.title}}</ion-card-title>
