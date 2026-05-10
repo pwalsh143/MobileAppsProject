@@ -1,52 +1,59 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>movie-details</ion-title>
+    <ion-title>Movie-details</ion-title>
   </ion-toolbar>
 </ion-header>
 
 
 <!-- added routerLink for home icon for homepage, favourites and top rated -->
 <ion-content [fullscreen]="true">
-  
-  <ion-button [routerLink]="['/home']" fill="clear" aria-label="Home" >
-  <ion-icon name="home-outline" size="large"></ion-icon>
-</ion-button>
 
-<ion-button [routerLink]="['/favourites']"fill="clear" aria-label="Favorite">
-  <ion-icon name="heart" size="large"></ion-icon>
-</ion-button>
+  <ion-button [routerLink]="['/home']" fill="clear" aria-label="Home">
+    <ion-icon name="home-outline" size="large"></ion-icon>
+  </ion-button>
 
-<ion-button [routerLink]="['/top-rated']" fill="clear" aria-label="Top Rated">
-  <ion-icon name="trophy-outline" size="large"></ion-icon>
-</ion-button>
-  <!-- Had to add safe navigation operatior(?) as page wasn't laoding on first click, this cleared it up -->
-<ion-card>
-  <ion-button *ngIf="!isFav" (click)="addToFavourites()">Add to Favourites
-</ion-button>
-<ion-button *ngIf="isFav" (click)="removeFromFavourites()">Remove from Favourites
-</ion-button>
-  <ion-card-header>
-    <ion-card-title>{{movieInfo?.title}}</ion-card-title>
-    <ion-card-subtitle>{{movieInfo?.overview}}</ion-card-subtitle>
-  </ion-card-header>
-</ion-card>
-<h1>Cast:</h1>
-<ion-card *ngFor="let actor of castMembers"(click)="openDetails(actor.id)">
-  <ion-card-header>
-    <img src= "https://image.tmdb.org/t/p/w500{{actor.profile_path}}" width="500"/>
-    <ion-card-title>{{actor.name}}</ion-card-title>
-    <ion-card-subtitle>{{actor.character}}</ion-card-subtitle>
-  </ion-card-header>
-</ion-card>
-<br>
-<h1>Crew:</h1>
-<ion-card *ngFor="let crew of crewMembers"(click)="openDetails(crew.id)">
-  <ion-card-header>
-    <img src= "https://image.tmdb.org/t/p/w500{{crew.profile_path}}" width="500"/>
-    <ion-card-title>{{crew.name}}</ion-card-title>
-    <ion-card-subtitle>{{crew.job}}</ion-card-subtitle>
-  </ion-card-header>
-</ion-card>
+  <ion-button [routerLink]="['/favourites']" fill="clear" aria-label="Favorite">
+    <ion-icon name="heart" size="large"></ion-icon>
+  </ion-button>
+
+  <ion-button [routerLink]="['/top-rated']" fill="clear" aria-label="Top Rated">
+    <ion-icon name="trophy-outline" size="large"></ion-icon>
+  </ion-button>
+
+  <!-- Had to add safe navigation operatior(?) as page wasn't laoding on first click, this cleared it up, conditional logic for add/remove movies here also -->
+  <ion-card>
+    <ion-button *ngIf="!isFav" (click)="addToFavourites()">Add to Favourites
+    </ion-button>
+    <ion-button *ngIf="isFav" (click)="removeFromFavourites()">Remove from Favourites
+    </ion-button>
+    <ion-card-header>
+      <ion-card-title>{{movieInfo?.title}}</ion-card-title>
+      <ion-card-subtitle>{{movieInfo?.overview}}</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+
+  <h1>Cast:</h1>
+  <!-- Added some more conditional logic to display a message if no image is availble for the cast/crew -->
+  <ion-card *ngFor="let actor of castMembers" (click)="openDetails(actor.id)">
+    <ion-card-header>
+      <img *ngIf="actor.profile_path" src="https://image.tmdb.org/t/p/w500{{actor.profile_path}}" width="500" />
+      <h4 *ngIf="!actor.profile_path">No Image Available</h4>
+      <ion-card-title>{{actor.name}}</ion-card-title>
+      <ion-card-subtitle>{{actor.character}}</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
+  <br>
+
+  <!-- Same as directly above but for crew credits this time-->
+  <h1>Crew:</h1>
+  <ion-card *ngFor="let crew of crewMembers" (click)="openDetails(crew.id)">
+    <ion-card-header>
+      <img *ngIf="crew.profile_path" src="https://image.tmdb.org/t/p/w500{{crew.profile_path}}" width="500" />
+      <h4 *ngIf="!crew.profile_path">No Image Available</h4>
+      <ion-card-title>{{crew.name}}</ion-card-title>
+      <ion-card-subtitle>{{crew.job}}</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
 
 
 

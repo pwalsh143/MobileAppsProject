@@ -13,24 +13,24 @@ and the actual service that can be used throughout the various pages
   providedIn: 'root',
 })
 export class DataService {
-  
+
   //Constructoer to intilaise Storage object
-constructor(private storage: Storage){
-  this.init();
-}
+  constructor(private storage: Storage) {
+    this.init();
+  }
 
-//wait and create the storage setup
-async init(){
-  await this.storage.create();
-}
+  //wait and create the storage setup
+  async init() {
+    await this.storage.create();
+  }
 
-//set/save the data into storage uisng set keyword
-async set(key: string,value: any){
-  await this.storage.set(key, value);
-}
+  //set/save the data into storage uisng set keyword
+  async set(key: string, value: any) {
+    await this.storage.set(key, value);
+  }
 
-//retieves/gets data from storage using the get keyword and key value
-async get(key: string){
-  return await this.storage.get(key);
-}
+  //retieves/gets data from storage using the get keyword and key value
+  async get(key: string) {
+    return await this.storage.get(key);
+  }
 }

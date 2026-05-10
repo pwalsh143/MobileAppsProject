@@ -4,19 +4,19 @@
   </ion-toolbar>
 </ion-header>
 
-
+<!-- Same as other pages but just displays the top top 20 rated films with an ion card and has working icons too-->
 <ion-content [fullscreen]="true">
 
-  <ion-button [routerLink]="['/home']" fill="clear" aria-label="Home" >
-  <ion-icon name="home-outline" size="large"></ion-icon>
-</ion-button>
+  <ion-button [routerLink]="['/home']" fill="clear" aria-label="Home">
+    <ion-icon name="home-outline" size="large"></ion-icon>
+  </ion-button>
 
-<ion-button [routerLink]="['/favourites']"fill="clear" aria-label="Favorite">
-  <ion-icon name="heart" size="large"></ion-icon>
-</ion-button>
+  <ion-button [routerLink]="['/favourites']" fill="clear" aria-label="Favorite">
+    <ion-icon name="heart" size="large"></ion-icon>
+  </ion-button>
 
-  <ion-card
-  *ngFor="let movie of topInfo" (click)="openMovieDetails(movie.id)">
+  <!-- same logic and basic display as other pages -->
+  <ion-card *ngFor="let movie of topInfo" (click)="openMovieDetails(movie.id)">
     <img src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}" />
     <ion-card-header>
       <ion-card-title>{{movie.title}}</ion-card-title>
@@ -24,4 +24,3 @@
     </ion-card-header>
   </ion-card>
 </ion-content>
-

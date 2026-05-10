@@ -14,7 +14,7 @@ import { homeOutline } from 'ionicons/icons';
 /*This page was created as an optional extra, it simply builds upon the other pages like details and movie_details,
 You'll notice a lot of the code is similar but just tweaked slightly for the relevant varibales for this page.
 Essentially nothing is really new here except the api call to the specific url(top rated) which is listed on the tmdb
-reference section under "Top Rated" */
+reference section under "Top Rated". */
 
 @Component({
   selector: 'app-top-rated',
@@ -25,32 +25,34 @@ reference section under "Top Rated" */
 })
 export class TopRatedPage implements OnInit {
 
- keyword: string = ""; 
+  //similarities again but a different variable(topInfo) this time in keeping with previous pages logic
+  keyword: string = "";
   apiKey = "1e83ad3775d3523cef62b909a9826f44"
   topInfo: any;
   options: HttpOptions = {
-  url: "https://api.themoviedb.org/3/trending/movie/day?api_key=" + this.apiKey 
+    url: "https://api.themoviedb.org/3/trending/movie/day?api_key=" + this.apiKey
   }
-  constructor(private router: Router,private ds:DataService, private mhs:MyHttpService) {addIcons({heart, homeOutline,});}
+  constructor(private router: Router, private ds: DataService, private mhs: MyHttpService) { addIcons({ heart, homeOutline, }); }
 
   //similar to other relevant methods on other pages, just an api call to the relevant url with my api key
-async getTopRated(){
-  this.options.url ="https://api.themoviedb.org/3/movie/top_rated?api_key=" + this.apiKey;
+  async getTopRated() {
+    this.options.url = "https://api.themoviedb.org/3/movie/top_rated?api_key=" + this.apiKey;
     let result = await this.mhs.get(this.options)
     this.topInfo = result.data.results
-    console.log(JSON.stringify(this.topInfo)) 
-}
+    console.log(JSON.stringify(this.topInfo))
+  }
+  //method is almost identical to all other pages that utilise it.
+  async openMovieDetails(id: number) {
 
-async openMovieDetails(id: number){
+    console.log(id);
+    //using dataservice save movie clicked
+    await this.ds.set("movieId", id)
 
-  console.log(id);
-  //using dataservice save movie clicked
-  await this.ds.set("movieId", id)
+    //then open the relevant movie details page
+    this.router.navigate(['/movie-details']);
+  }
 
-  //then open the relevant movie details page
-  this.router.navigate(['/movie-details']);
-}
-
+  //call method on intialisation of page
   ngOnInit() {
 
     this.getTopRated();

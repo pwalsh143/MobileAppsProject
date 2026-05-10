@@ -19,24 +19,24 @@ import { ViewWillEnter } from '@ionic/angular';
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonIcon, IonButton, RouterLink]
 })
-export class MovieDetailsPage implements OnInit,ViewWillEnter {
+export class MovieDetailsPage implements OnInit, ViewWillEnter {
 
-  
+
   apiKey = "1e83ad3775d3523cef62b909a9826f44"
   movieInfo: any;
   castMembers: any;
   crewMembers: any;
   isFav: boolean = false;
   options: HttpOptions = {
-  url: "https://api.themoviedb.org/3/trending/movie/day?api_key=" + this.apiKey 
+    url: "https://api.themoviedb.org/3/trending/movie/day?api_key=" + this.apiKey
   }
-  
-  constructor(private router: Router, private ds:DataService, private mhs:MyHttpService) { 
+
+  constructor(private router: Router, private ds: DataService, private mhs: MyHttpService) {
 
     addIcons({ homeOutline });
   }
 
-  async getMovieDetails(){
+  async getMovieDetails() {
 
     //retrieve movie ID
     let movieId = await this.ds.get("movieId");
@@ -44,8 +44,8 @@ export class MovieDetailsPage implements OnInit,ViewWillEnter {
     //movie id to console, to check with inspect tool
     console.log(movieId);
 
-     //took code from home.page.ts and adjusted it slightly
-    this.options.url= "https://api.themoviedb.org/3/movie/" + movieId + "?api_key=" + this.apiKey;
+    //took code from home.page.ts and adjusted it slightly
+    this.options.url = "https://api.themoviedb.org/3/movie/" + movieId + "?api_key=" + this.apiKey;
 
     //send request to database & store
     let result = await this.mhs.get(this.options)
@@ -57,11 +57,11 @@ export class MovieDetailsPage implements OnInit,ViewWillEnter {
     console.log(this.movieInfo);
   }
 
-  async castingCall(){
+  async castingCall() {
 
     //same as above but added credits to url to pull relevant details for page display
     let movieId = await this.ds.get("movieId");
-    this.options.url= "https://api.themoviedb.org/3/movie/" + movieId + "/credits?api_key=" + this.apiKey;
+    this.options.url = "https://api.themoviedb.org/3/movie/" + movieId + "/credits?api_key=" + this.apiKey;
 
     //store data for cast and crew separately
     let result = await this.mhs.get(this.options)
@@ -70,50 +70,50 @@ export class MovieDetailsPage implements OnInit,ViewWillEnter {
   }
 
   //copied method from homepage and adjusted it to open details
-  async openDetails(id: number){
+  async openDetails(id: number) {
 
-  console.log(id);
-  //using dataservice save cast/crew details clicked
-  await this.ds.set("personalId", id)
-  //open the relevant details page
-  this.router.navigate(['/details']);
+    console.log(id);
+    //using dataservice save cast/crew details clicked
+    await this.ds.set("personalId", id)
+    //open the relevant details page
+    this.router.navigate(['/details']);
   }
 
 
   //this method checks if the movie is already favourited
-async favouriteMovie(){
+  async favouriteMovie() {
 
-  //fetch favourites from ionic strage
-let favourites = await this.ds.get("favourites");
+    //fetch favourites from ionic strage
+    let favourites = await this.ds.get("favourites");
 
-//check if null/empty
-if(favourites === null || favourites === ""){
-  //create an array of favourites that is empty 
-  favourites = [];
-}
+    //check if null/empty
+    if (favourites === null || favourites === "") {
+      //create an array of favourites that is empty 
+      favourites = [];
+    }
 
-//default to false
-this.isFav = false;
+    //default to false
+    this.isFav = false;
 
-//iterate through array containing favourites
-for (let movie of favourites){
-  if(movie.id == this.movieInfo.id) //if there is a match between stored movie and current movie
-    this.isFav = true; //then this movie is already a favourite
-}
+    //iterate through array containing favourites
+    for (let movie of favourites) {
+      if (movie.id == this.movieInfo.id) //if there is a match between stored movie and current movie
+        this.isFav = true; //then this movie is already a favourite
+    }
 
-}
+  }
 
 
   //method for adding to favourites
-  async addToFavourites(){
-//retrieve favourites array
+  async addToFavourites() {
+    //retrieve favourites array
     let favourites = await this.ds.get("favourites");
-    
+
     //check if null/empty
-if(favourites === null || favourites === ""){
-  //create an array of favourites that is empty 
-  favourites = [];
-}
+    if (favourites === null || favourites === "") {
+      //create an array of favourites that is empty 
+      favourites = [];
+    }
 
     //add current movie to the array
     favourites.push(this.movieInfo);
@@ -127,17 +127,17 @@ if(favourites === null || favourites === ""){
   }
 
   //method for removing favourites
-  async removeFromFavourites(){
+  async removeFromFavourites() {
 
     //retrieve favourites array
     let favourites = await this.ds.get("favourites");
 
-      //loop through the array and remove(splice) the index if it matches
-    for(let i = 0; i< favourites.length;i++){
+    //loop through the array and remove(splice) the index if it matches
+    for (let i = 0; i < favourites.length; i++) {
 
       //check if the movies match
-      if (favourites[i].id == this.movieInfo.id){
-      favourites.splice(i,1); //and remove if that is the case
+      if (favourites[i].id == this.movieInfo.id) {
+        favourites.splice(i, 1); //and remove if that is the case
       }
     }
 
@@ -152,26 +152,27 @@ if(favourites === null || favourites === ""){
 
 
 
-
-   ngOnInit() {
+  //intialisation
+  ngOnInit() {
     //call methods on page load
     this.getMovieDetails();
 
     this.castingCall();
 
-   }
+  }
 
-   /* as per your lecture notes(Ionic Introduction) on the ionic lifecycle and the ionic docs, used ionViewWillEnter to fix the issue of pages 
-   keeping data and not properly routing to desired content, instead what occured was routing back to the retrieved saved data, 
-   there appeared to be a loop, where after clicking it most likely referenced what was saved in storage. */
-   
-   ionViewWillEnter(){
-  //calls methods after ngOnInit, refreshing relevant data
-  this.getMovieDetails();
+  /* as per your lecture notes(Ionic Introduction) on the ionic lifecycle and the ionic docs, I used ionViewWillEnter here to fix the issue of pages 
+  keeping data and not properly routing to desired content, instead what occured was routing back to the retrieved saved data it seems, 
+  there appeared to be a loop almost, where after clicking it most likely referenced what was saved in storage. ionViewWillEnter helped to stop this and 
+  make page function accordingly. */
 
-  this.castingCall();
-}
+  ionViewWillEnter() {
+    //calls methods after ngOnInit, refreshing relevant data
+    this.getMovieDetails();
 
-   
+    this.castingCall();
+  }
+
+
 }
 

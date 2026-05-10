@@ -22,49 +22,59 @@ export class DetailsPage implements OnInit {
   apiKey = "1e83ad3775d3523cef62b909a9826f44"
   personInfo: any;
   creditsInfo: any;
+  crewInfo: any;
   options: HttpOptions = {
-    url: "https://api.themoviedb.org/3/trending/movie/day?api_key=" + this.apiKey 
-    }
+    url: "https://api.themoviedb.org/3/trending/movie/day?api_key=" + this.apiKey
+  }
 
 
- constructor(private router: Router, private ds:DataService, private mhs:MyHttpService) { 
- 
-     addIcons({ homeOutline });
-   }
+  constructor(private router: Router, private ds: DataService, private mhs: MyHttpService) {
 
-   async getPersonalDetails(){
+    addIcons({ homeOutline });
+  }
+
+  //this method gets personal details
+  async getPersonalDetails() {
+    //retrieve id data from storage
     let personalId = await this.ds.get("personalId");
 
-    this.options.url= "https://api.themoviedb.org/3/person/" + personalId + "?api_key=" + this.apiKey;
+    //concatenation of id and url and api key request
+    this.options.url = "https://api.themoviedb.org/3/person/" + personalId + "?api_key=" + this.apiKey;
 
+    //get request to the database using service 
     let result = await this.mhs.get(this.options);
 
+    //stores the data retrieved into personInfo
     this.personInfo = result.data;
-   }
+  }
 
-   async getCredits(){
- let personalId = await this.ds.get("personalId");
+  //almost exact same as getpersonal details above but for film credits, as you can see from URL API request
+  async getCredits() {
+    let personalId = await this.ds.get("personalId");
 
-    this.options.url= "https://api.themoviedb.org/3/person/" + personalId + "/movie_credits?api_key=" + this.apiKey;
+    this.options.url = "https://api.themoviedb.org/3/person/" + personalId + "/movie_credits?api_key=" + this.apiKey;
 
     let result = await this.mhs.get(this.options);
-
-    this.creditsInfo = result.data.cast;
     
-}
+    //separate for cast and crew
+    this.creditsInfo = result.data.cast;
+    this.crewInfo = result.data.crew;
 
-//pulled this code over from homepage ts to reuse, could of potentially made a service of this perhaps but decided against it
-async openMovieDetails(id: number){
+  }
 
-  console.log(id);
-  //using dataservice save movie clicked
-  await this.ds.set("movieId", id)
+  //pulled this code over from homepage ts to reuse, could of potentially made a service of this perhaps but decided against it
+  async openMovieDetails(id: number) {
 
-  //then open the relevant movie details page
-  this.router.navigate(['/movie-details']);
+    //simply log id to console for reference
+    console.log(id);
+    //using dataservice save movie clicked
+    await this.ds.set("movieId", id)
 
-}
+    //then open the relevant movie details page
+    this.router.navigate(['/movie-details']);
 
+  }
+  //call these methods on page intialisation
   ngOnInit() {
 
     this.getPersonalDetails();

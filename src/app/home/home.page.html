@@ -6,34 +6,33 @@
   </ion-toolbar>
 </ion-header>
 
+
+<!--Most html pages utilise the ion card or ion list content for display and have a realtively basic structure and listing of content with some conditional logic-->
 <ion-content [fullscreen]="true">
-  
-
-<ion-input label="Search" placeholder="Movie title" [(ngModel)]="keyword"></ion-input>
-<ion-button (click)="openMovies()">Search</ion-button>
-
-<ion-button [routerLink]="['/favourites']"fill="clear" aria-label="Favorite">
-  <ion-icon name="heart" size="large"></ion-icon>
-</ion-button>
-
-<ion-button [routerLink]="['/top-rated']" fill="clear" aria-label="Top Rated">
-  <ion-icon name="trophy-outline" size="large"></ion-icon>
-</ion-button>
-<br>
-<br>
-<ion-label>Todays Trending Movies</ion-label>
 
 
+  <ion-input label="Search" placeholder="Movie title" [(ngModel)]="keyword"></ion-input>
+  <ion-button (click)="openMovies()">Search</ion-button>
+
+  <ion-button [routerLink]="['/favourites']" fill="clear" aria-label="Favorite">
+    <ion-icon name="heart" size="large"></ion-icon>
+  </ion-button>
+
+  <ion-button [routerLink]="['/top-rated']" fill="clear" aria-label="Top Rated">
+    <ion-icon name="trophy-outline" size="large"></ion-icon>
+  </ion-button>
+  <br>
+  <br>
+  <ion-label>Todays Trending Movies</ion-label>
+
+<!-- display all movies in the array and allow them to be clicked on with an onclick event to route them to the movie details page-->
   <ion-card *ngFor="let movie of movieInfo" (click)="openMovieDetails(movie.id)">
-  <img src= "https://image.tmdb.org/t/p/w500{{movie.poster_path}}"/>
-  <ion-card-header>
-    <ion-card-title>{{movie.title}}</ion-card-title>
-    <ion-card-subtitle>Rating: {{movie.vote_average}}</ion-card-subtitle>
-  </ion-card-header>
+    <img src="https://image.tmdb.org/t/p/w500{{movie.poster_path}}" />
+    <ion-card-header>
+      <ion-card-title>{{movie.title}}</ion-card-title>
+      <ion-card-subtitle>Rating: {{movie.vote_average}}</ion-card-subtitle>
+    </ion-card-header>
 
-  <ion-card-content>{{movie.overview}}</ion-card-content>
-</ion-card>
+    <ion-card-content>{{movie.overview}}</ion-card-content>
+  </ion-card>
 </ion-content>
-
-
-

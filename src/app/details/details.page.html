@@ -1,50 +1,70 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>details</ion-title>
+    <ion-title>Details</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<!-- added ngIf for certain criteria below in case there was no value to return i.e. deathday,biography etc -->
+<!-- AS per homepage, ion card content is displayed with conditional logic and icons that link directly to certain pages -->
+
 <ion-content [fullscreen]="true">
-<ion-button [routerLink]="['/home']" fill="clear" aria-label="Home" >
-  <ion-icon name="home-outline" size="large"></ion-icon>
-</ion-button>
+  <ion-button [routerLink]="['/home']" fill="clear" aria-label="Home">
+    <ion-icon name="home-outline" size="large"></ion-icon>
+  </ion-button>
 
-<ion-button [routerLink]="['/favourites']"fill="clear" aria-label="Favorite">
-  <ion-icon name="heart"></ion-icon>
-</ion-button>
+  <ion-button [routerLink]="['/favourites']" fill="clear" aria-label="Favorite">
+    <ion-icon name="heart" size="large"></ion-icon>
+  </ion-button>
 
-<ion-button [routerLink]="['/top-rated']" fill="clear" aria-label="Top Rated">
-  <ion-icon name="trophy-outline"></ion-icon>
-</ion-button>
+  <ion-button [routerLink]="['/top-rated']" fill="clear" aria-label="Top Rated">
+    <ion-icon name="trophy-outline" size="large"></ion-icon>
+  </ion-button>
 
+  <!-- added ngIf for certain criteria below in case there was no value to return i.e. deathday,biography,no image etc -->
   <ion-card>
-  <ion-card-header>
-    <img src= "https://image.tmdb.org/t/p/w500{{personInfo?.profile_path}}" width="500"/>
-    <ion-card-title>Name: {{personInfo?.name}}</ion-card-title>
-    <ion-card-subtitle *ngIf="personInfo?.also_known_as">AKA: {{personInfo?.also_known_as}}</ion-card-subtitle>
-    <ion-card-subtitle *ngIf="personInfo?.birthday">Date of Birth: {{personInfo?.birthday}}</ion-card-subtitle>
-    <ion-card-subtitle *ngIf="personInfo?.deathday">Date of death: {{personInfo?.deathday}}</ion-card-subtitle>
-    <ion-card-subtitle *ngIf="personInfo?.place_of_birth">Place of Birth: {{personInfo?.place_of_birth}}</ion-card-subtitle>
-    <ion-card-subtitle *ngIf="personInfo?.biography">Bio: {{personInfo?.biography}}</ion-card-subtitle>
-  </ion-card-header>
-</ion-card>
+    <ion-card-header>
+      <img src="https://image.tmdb.org/t/p/w500{{personInfo?.profile_path}}" width="500" />
+      <ion-card-title>Name: {{personInfo?.name}}</ion-card-title>
+      <ion-card-subtitle *ngIf="personInfo?.also_known_as">AKA: {{personInfo?.also_known_as}}</ion-card-subtitle>
+      <ion-card-subtitle *ngIf="personInfo?.birthday">Date of Birth: {{personInfo?.birthday}}</ion-card-subtitle>
+      <ion-card-subtitle *ngIf="personInfo?.deathday">Date of death: {{personInfo?.deathday}}</ion-card-subtitle>
+      <ion-card-subtitle *ngIf="personInfo?.place_of_birth">Place of Birth:
+        {{personInfo?.place_of_birth}}</ion-card-subtitle>
+      <ion-card-subtitle *ngIf="personInfo?.biography">Bio: {{personInfo?.biography}}</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
 
-
-<ion-card>
-  <ion-card-header>
-    <ion-card-title>List of films</ion-card-title>
-    <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-  </ion-card-header>
-  <ion-card-content>
-    <ion-list>
-      <ion-item *ngFor="let movie of creditsInfo" (click)="openMovieDetails(movie.id)">
-        <ion-thumbnail slot="start">
-          <img src= "https://image.tmdb.org/t/p/w500{{movie?.poster_path}}" />
-        </ion-thumbnail>
-        <ion-label>{{movie?.title}}</ion-label>
-      </ion-item>
+  <!-- Used a card to display actor credits and ngIf logic in case there were no acting credits in the array for crew -->
+  <ion-card *ngIf="creditsInfo?.length > 0">
+    <ion-card-header>
+      <ion-card-title>Films as actor</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let movie of creditsInfo" (click)="openMovieDetails(movie.id)">
+          <ion-thumbnail slot="start">
+            <img *ngIf="movie.poster_path" src="https://image.tmdb.org/t/p/w500{{movie?.poster_path}}" />
+            <h4 *ngIf="!movie.poster_path"> No Image Available</h4>
+          </ion-thumbnail>
+          <ion-label>{{movie?.title}}<p>{{movie?.character}}</p></ion-label>
+        </ion-item>
       </ion-list>
-</ion-card-content>
-</ion-card>
+    </ion-card-content>
+  </ion-card>
 
+  <!-- Used a card to display crew credits this time and ngIf logic to hide if there is nothing in the array -->
+  <ion-card *ngIf="crewInfo?.length > 0">
+    <ion-card-header>
+      <ion-card-title>Films as crew</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let movie of crewInfo" (click)="openMovieDetails(movie.id)">
+          <ion-thumbnail slot="start">
+            <img *ngIf="movie.poster_path" src="https://image.tmdb.org/t/p/w500{{movie?.poster_path}}" />
+            <h4 *ngIf="!movie.poster_path"> No Image Available</h4>
+          </ion-thumbnail>
+          <ion-label>{{movie?.title}}<p>{{movie?.job}}</p></ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>

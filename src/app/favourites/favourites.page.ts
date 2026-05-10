@@ -23,32 +23,32 @@ export class FavouritesPage implements OnInit {
 
   favouriteList: any; //variable to store films
 
-  constructor(private router: Router,private ds:DataService, private mhs:MyHttpService) {addIcons({heart, trophyOutline, homeOutline});}
+  constructor(private router: Router, private ds: DataService, private mhs: MyHttpService) { addIcons({ heart, trophyOutline, homeOutline }); }
 
 
-async loadFavourites(){
+  async loadFavourites() {
 
     //get favourites from storage
-  let favourites = await this.ds.get("favourites");
+    let favourites = await this.ds.get("favourites");
 
     //if it doesn't exist create a new array, just like movie details page(copied from there)
-    if(favourites === null || favourites === ""){
-  favourites = [];//empty array
+    if (favourites === null || favourites === "") {
+      favourites = [];//empty array
 
-}
-this.favouriteList = favourites;
-}
+    }
+    this.favouriteList = favourites;
+  }
 
-//method copied over from other pages to open movie-details page
-async openMovieDetails(id: number){
+  //method copied over from other pages to open movie-details page
+  async openMovieDetails(id: number) {
 
-  console.log(id);
-  //using dataservice save movie clicked
-  await this.ds.set("movieId", id)
+    console.log(id);
+    //using dataservice save movie clicked
+    await this.ds.set("movieId", id)
 
-  //then open the relevant movie details page
-  this.router.navigate(['/movie-details']);
-}
+    //then open the relevant movie details page
+    this.router.navigate(['/movie-details']);
+  }
 
 
   ngOnInit() {
@@ -56,7 +56,7 @@ async openMovieDetails(id: number){
     this.loadFavourites();
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.loadFavourites();
   }
 

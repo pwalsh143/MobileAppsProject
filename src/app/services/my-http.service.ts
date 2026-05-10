@@ -12,12 +12,12 @@ to help make calls to the relevant API
   providedIn: 'root',
 })
 export class MyHttpService {
-  
 
-  constructor(){}
 
-    //get method to retrieve and allow for api call to take its time
-  public async get (options: HttpOptions) {
+  constructor() { }
+
+  //get method to retrieve and allow for api call to take its time
+  public async get(options: HttpOptions) {
     console.log(options.url)//this is just a console.log print for inspection
     return await CapacitorHttp.get(options);//sends request to api and rteurn data(JSON data)
   }
